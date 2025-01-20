@@ -1,0 +1,40 @@
+{# templates/produccion/produccion_add.html #}
+{% extends 'produccion/base_produccion.html' %}
+{% load custom_filters %}
+
+{% block produccion_title %}Registrar Producción{% endblock %}
+
+{% block produccion_content %}
+<form method="post">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    <div class="table-responsive">
+        <table class="table table-hover table-striped align-middle mb-0">
+            <thead class="table-primary">
+                <tr>
+                    <th class="py-3">Producto</th>
+                    <th class="py-3">Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if formset %}
+                {% for form in formset %}
+                <tr>
+                    <td class="py-3">
+                        {% with product_name=productos_dict|get_item:form.id.value %}
+                            {{ product_name }}
+                        {% endwith %}
+                        {{ form.id }}
+                    </td>
+                    <td class="py-3">
+                        {{ form.cantidad }}
+                    </td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg mt-4">Guardar Producción</button>
+</form>
+{% endblock %}
