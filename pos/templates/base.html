@@ -1,49 +1,57 @@
+{% load static %}
 <!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../../../favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fábrica Serra - Sistema de gestión de producción y negocios">
+    <meta name="author" content="Fábrica Serra">
+    <link rel="icon" href="/favicon.ico">
 
-    <title>Fabrica Serra</title>
+    <title>Fábrica Serra</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
-    <!-- Custom styles for this template -->
-
-    <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Estilos personalizados para la app Producción -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
 </head>
-
 <body>
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center py-3">
-            <h3 class="text-muted">Fabrica Serra</h3>
+        <!-- Header -->
+        <header class="d-flex flex-wrap justify-content-between align-items-center py-3 mb-4 border-bottom">
+            <h3 class="text-muted mb-0">Fábrica Serra</h3>
             <nav>
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Produccion</a>
+                        <a class="nav-link active" href="#" aria-current="page">Producción</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Negocio</a>
                     </li>
                 </ul>
             </nav>
-        </div>
+        </header>
 
-        <div class="p-5 mb-4 bg-light rounded-3 text-center">
-              {% block page_content %}{% endblock page_content %}
-        </div>
+        <!-- Contenido principal -->
+        <main>
+            <div class="p-5 mb-4 bg-light rounded-3 text-center">
+                {% block page_content %}{% endblock %}
+            </div>
 
-        <div class="row marketing">
-        </div>
+            <div class="row marketing">
+                <!-- Contenido de marketing aquí -->
+            </div>
+        </main>
 
-        <footer class="footer">
-            <p>© Company 2017</p>
+        <!-- Footer -->
+        <footer class="footer text-center text-muted">
+            <p class="mb-0">© Powered by Agustin Serra</p>
         </footer>
 
-    </div> <!-- /container -->
+    </div>
+
+    <!-- Bootstrap Bundle con Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,0 +1,45 @@
+/* Estilos personalizados para la aplicación Producción */
+
+/* Para el contenedor principal */
+body {
+    background-color: #f8f9fa; /* Fondo claro, como en el base.html */
+}
+
+/* Botones */
+.btn-outline-primary {
+    border-color: #5e86c2;
+    color: #5e86c2;
+}
+
+.btn-outline-primary:hover {
+    background-color: #5e86c2;
+    color: white;
+}
+
+/* Tabla */
+.table-responsive {
+    margin-top: 2rem;
+}
+
+.table-primary {
+    background-color: #e9ecef; /* Color de fondo para encabezados de tabla */
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table-striped tbody tr:nth-child(odd) {
+    background-color: #f8f9fa;
+}
+
+/* Margen en la parte superior */
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+/* Paddings en las celdas */
+.py-3 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}

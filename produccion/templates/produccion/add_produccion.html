@@ -1,6 +1,7 @@
 {# templates/produccion/produccion_add.html #}
 {% extends 'produccion/base_produccion.html' %}
 {% load custom_filters %}
+{% load static %}
 
 {% block produccion_title %}Registrar Producción{% endblock %}
 
@@ -8,7 +9,7 @@
 <form method="post">
     {% csrf_token %}
     {{ formset.management_form }}
-    <div class="table-responsive">
+    <div class="table-responsive mt-4">
         <table class="table table-hover table-striped align-middle mb-0">
             <thead class="table-primary">
                 <tr>
