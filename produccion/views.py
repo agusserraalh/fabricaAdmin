@@ -35,8 +35,6 @@ class AddProduction(FormView):
                 if form.cleaned_data.get('cantidad', 0) != 0:
                     form.save()
             return HttpResponseRedirect(self.success_url)
-
-        # Si hay errores, renderiza con el formset inválido
         return self.render_to_response(self.get_context_data(formset=formset))
 
 

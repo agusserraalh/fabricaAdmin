@@ -7,7 +7,6 @@ import os
 import requests
 from .models import Product
 
-# Obtener productos desde la API
 def getProductos(url, api_token):
     headers = { 
         'X-Api-Token': api_token,
@@ -22,7 +21,6 @@ def getProductos(url, api_token):
         print(f"Error en la solicitud: {e}")
         return None
 
-# Actualizar productos en la base de datos
 def updateProductos(response_json):
     data = response_json['data']
     for producto in data:
@@ -36,9 +34,8 @@ def updateProductos(response_json):
             }
         )
 
-        # Actualizar campos si ya existe
         updated = False
-        if not created:  # Solo verifica y actualiza si el producto ya existía
+        if not created: 
             if product.product_key != producto.get('product_key'):
                 product.product_key = producto.get('product_key')
                 updated = True
@@ -52,7 +49,6 @@ def updateProductos(response_json):
                 product.save()
 
 
-# Sincronizar productos con la API
 def sincronizarProductos():
     api_token = os.environ.get("API_TOKEN")
     if not api_token:
