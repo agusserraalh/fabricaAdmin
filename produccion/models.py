@@ -5,7 +5,7 @@ class Product(models.Model):
     id = models.CharField(max_length=255, primary_key=True)
     product_key = models.CharField(max_length=255)
     notes = models.TextField(null=True, blank=True)
-    price = models.FloatField()
+    price = models.FloatField(default=0)
     is_deleted = models.BooleanField(default=False)
 
     class Meta:
