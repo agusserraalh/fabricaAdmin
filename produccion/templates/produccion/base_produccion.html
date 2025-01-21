@@ -11,9 +11,20 @@
         <a href="{% url 'produccion_list' %}" class="btn btn-outline-primary">
             <i class="fas fa-list"></i> Ver Producción
         </a>
+        <a href="{% url 'produccion_sincronizarProductos' %}" class="btn btn-outline-primary">
+            <i class="fas fa-list"></i> Sincronizar Productos
+        </a>
     </div>
-</div>
-
+    </div>
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 {% block produccion_content %}
 <div class="bg-light">
     {% block produccion_details %}{% endblock %}

@@ -6,6 +6,7 @@ class Product(models.Model):
     product_key = models.CharField(max_length=255)
     notes = models.TextField(null=True, blank=True)
     price = models.FloatField()
+    is_deleted = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'productos'
@@ -18,7 +19,7 @@ class Production(models.Model):
     id = models.CharField(max_length=255)
     date = models.DateField(auto_now=True)
     cantidad = models.IntegerField()
-
+    
     class Meta:
         db_table = 'produccion'
 

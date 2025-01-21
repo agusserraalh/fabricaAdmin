@@ -92,7 +92,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get("DB_NAME"),
-        'USER': 'serra',
+        'USER': os.environ.get("DB_USER"),
         'PASSWORD': os.environ.get("DB_PASSWORD"),
         'HOST': os.environ.get("DB_HOST"),  # O la dirección del servidor si no es local
         'PORT': os.environ.get("DB_PORT"),  # Puerto por defecto de PostgreSQL
