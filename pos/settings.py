@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-yksc#bv$55@59$qji^yk%q4%l*0wsg+*zh+0q)_iy*=xy&vrnl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -160,3 +160,22 @@ CRONJOBS = [
 API_TOKEN = env('API_TOKEN')
 BASE_URL = env('BASE_URL') 
 
+##### Logs
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
