@@ -8,7 +8,10 @@ class ProductionForm(forms.ModelForm):
         model = Production
         fields = ('id', 'cantidad')
         widgets = {
-            'id': forms.HiddenInput(),  # Esto lo marca como oculto
+            'id': forms.HiddenInput(), 
+            'cantidad': forms.NumberInput(attrs={
+            'class': 'small-input',     
+            'style': 'width: 80px; text-align: center;',                      })        
         }
 
     def __init__(self, *args, **kwargs):

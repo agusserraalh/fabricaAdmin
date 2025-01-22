@@ -2,31 +2,40 @@
 {% extends 'base.html' %}
 
 {% block page_content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
     <h2 class="text-dark">{% block produccion_title %}Producción{% endblock %}</h2>
-    <div>
-        <a href="{% url 'produccion_add' %}" class="btn btn-outline-primary">
+    <div class="d-flex gap-2">
+        <a href="{% url 'produccion_add' %}" 
+           class="btn {% if request.resolver_match.url_name == 'produccion_add' %}btn-primary{% else %}btn-outline-secondary{% endif %}" 
+           aria-current="{% if request.resolver_match.url_name == 'produccion_add' %}page{% endif %}">
             <i class="fas fa-plus"></i> Nueva Producción
         </a>
-        <a href="{% url 'produccion_list' %}" class="btn btn-outline-primary">
+        <a href="{% url 'produccion_list' %}" 
+           class="btn {% if request.resolver_match.url_name == 'produccion_list' %}btn-primary{% else %}btn-outline-secondary{% endif %}" 
+           aria-current="{% if request.resolver_match.url_name == 'produccion_list' %}page{% endif %}">
             <i class="fas fa-list"></i> Ver Producción
         </a>
-        <a href="{% url 'produccion_sincronizarProductos' %}" class="btn btn-outline-primary">
-            <i class="fas fa-list"></i> Sincronizar Productos
+        <a href="{% url 'produccion_sincronizarProductos' %}" 
+           class="btn {% if request.resolver_match.url_name == 'produccion_sincronizarProductos' %}btn-primary{% else %}btn-outline-secondary{% endif %}" 
+           aria-current="{% if request.resolver_match.url_name == 'produccion_sincronizarProductos' %}page{% endif %}">
+            <i class="fas fa-sync-alt"></i> Sincronizar Productos
         </a>
     </div>
+</div>
+
+{% if messages %}
+<div class="container mt-3">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-    {% if messages %}
-    <div class="container mt-3">
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}" role="alert">
-            {{ message }}
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
+    {% endfor %}
+</div>
+{% endif %}
+
 {% block produccion_content %}
-<div class="bg-light">
+<div class="bg-light p-3 rounded">
     {% block produccion_details %}{% endblock %}
 </div>
 {% endblock %}
