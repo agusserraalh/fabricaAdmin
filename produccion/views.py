@@ -42,7 +42,7 @@ class AddProduction(FormView):
 class ListProduccion(ListView):
     model = Production
     template_name = 'produccion/list_produccion.html'
-    ordering = ['-date']
+    ordering = ['-date', '-created_at']
     paginate_by = 15
     context_object_name = 'object_list'
 
