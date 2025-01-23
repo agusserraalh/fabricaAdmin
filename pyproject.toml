@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pos"
+name = "adminFabrica"
 version = "0.1.0"
 description = ""
 authors = ["agustin serra"]
