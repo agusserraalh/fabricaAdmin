@@ -9,9 +9,11 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from datetime import date
 from django.db.models import Sum
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class AddProduction(FormView):
+class AddProduction(LoginRequiredMixin, FormView):
     template_name = 'produccion/add_produccion.html'
     success_url = "/produccion/list"  
     form_class = formset_factory(ProductionForm, extra=0)
@@ -39,7 +41,7 @@ class AddProduction(FormView):
             return HttpResponseRedirect(self.success_url)
         return self.render_to_response(self.get_context_data(formset=formset))
 
-class ListProduccion(ListView):
+class ListProduccion(LoginRequiredMixin,ListView):
     model = Production
     template_name = 'produccion/list_produccion.html'
     ordering = ['-date', '-created_at']
@@ -66,7 +68,8 @@ class ListProduccion(ListView):
         context['current_year'] = current_year
 
         return context
-
+    
+@login_required
 def sincronizar_productos(request):
     try:
         sincronizarProductos()

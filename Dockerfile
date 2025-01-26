@@ -7,13 +7,13 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /code
 
-COPY pyproject.toml poetry.lock /code/
+COPY ./ /code/
+
+RUN ls /code
 
 RUN poetry config virtualenvs.create false
 
 RUN poetry install --no-root 
-
-COPY ../ /code/
 
 RUN poetry 
 

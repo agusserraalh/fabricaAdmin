@@ -29,7 +29,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Negocio</a>
                     </li>
-                </ul>
+                    <ul >
+                        <li>Usuario: {{ user.get_username }}</li>
+                        <a href="{% url 'exit' %}">Logout</a>
+                    </ul>
             </nav>
         </header>
 
@@ -45,13 +48,15 @@
         </main>
 
         <!-- Footer -->
+        <br>
         <footer class="footer text-center text-muted">
-            <p class="mb-0">© Powered by Agustin Serra</p>
+            <h4 class="mb-0">© Powered by Agustin Serra</h4>
         </footer>
 
     </div>
 
     <!-- Bootstrap Bundle con Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/pulse/bootstrap.min.css" rel="stylesheet">
+
 </body>
 </html>

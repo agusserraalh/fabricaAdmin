@@ -52,7 +52,7 @@ docker-compose ps
 
 #### Configuración Inicial de Base de Datos
 ```bash
-# Crear base de datos y usuario
+# Crear base de datos y usuario - Revisar que no anda desde afuera
 docker-compose exec postgres psql -U postgres -c """
 CREATE DATABASE fabricaserra;
 CREATE USER serra WITH PASSWORD 'serra123';
@@ -70,7 +70,7 @@ docker-compose exec web python manage.py createsuperuser
 #### Iniciar Servidor
 ```bash
 # Modo desarrollo
-docker-compose exec web python manage.py runserver 0.0.0.0:8000
+docker compose exec web python manage.py runserver 0.0.0.0:8000
 
 # Modo background
 docker-compose exec web python manage.py runserver 0.0.0.0:8000 >/dev/null 2>&1 &

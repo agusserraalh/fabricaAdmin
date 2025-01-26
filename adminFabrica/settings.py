@@ -53,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware'
+
 ]
 
 ROOT_URLCONF = 'adminFabrica.urls'
@@ -124,7 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'America/Argentina/Buenos_Aires'
 
@@ -179,3 +181,7 @@ LOGGING = {
         },
     },
 }
+
+LOGIN_URL='/accounts/login/'
+LOGIN_REDIRECT_URL = '/produccion/add'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
