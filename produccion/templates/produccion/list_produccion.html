@@ -165,22 +165,33 @@
     <div class="card-body">
 
         <!-- Formulario de Filtro por Mes -->
-        <form method="GET" action="{% url 'produccion_list' %}" class="mb-3 d-flex justify-content-center">
-            <label for="mes" class="me-2">Seleccionar Mes:</label>
-            <select name="mes" id="mes" class="form-select w-auto me-3">
-                {% for num, nombre in meses.items %}
-                <option value="{{ num }}" {% if num == current_month %}selected{% endif %}>{{ nombre }}</option>
-                {% endfor %}
-            </select>
-
-            <label for="anio" class="me-2">Año:</label>
-            <select name="anio" id="anio" class="form-select w-auto me-3">
-                {% for anio in anios_disponibles %}
-                <option value="{{ anio }}" {% if anio == current_year %}selected{% endif %}>{{ anio }}</option>
-                {% endfor %}
-            </select>
-
-            <button type="submit" class="btn btn-primary">Filtrar</button>
+        <form method="GET" action="{% url 'produccion_list' %}" class="mb-3">
+            <div class="row g-2 align-items-center">
+                <!-- Selección de Mes -->
+                <div class="col-12 col-md-4">
+                    <label for="mes" class="form-label">Seleccionar Mes:</label>
+                    <select name="mes" id="mes" class="form-select">
+                        {% for num, nombre in meses.items %}
+                        <option value="{{ num }}" {% if num == current_month %}selected{% endif %}>{{ nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+        
+                <!-- Selección de Año -->
+                <div class="col-12 col-md-4">
+                    <label for="anio" class="form-label">Año:</label>
+                    <select name="anio" id="anio" class="form-select">
+                        {% for anio in anios_disponibles %}
+                        <option value="{{ anio }}" {% if anio == current_year %}selected{% endif %}>{{ anio }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+        
+                <!-- Botón de Filtrar -->
+                <div class="col-12 col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+                </div>
+            </div>
         </form>
 
         <div class="table-responsive">
