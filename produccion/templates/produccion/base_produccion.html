@@ -1,42 +1,58 @@
 {# templates/produccion/base_produccion.html #}
 {% extends 'base.html' %}
+{% load static %}
 
 {% block page_content %}
-<div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
-    <h2 class="text-dark">{% block produccion_title %}Producción{% endblock %}</h2>
-    <div class="d-flex gap-2">
-        <a href="{% url 'produccion_add' %}" 
-           class="btn {% if request.resolver_match.url_name == 'produccion_add' %}btn-primary{% else %}btn-outline-secondary{% endif %}" 
-           aria-current="{% if request.resolver_match.url_name == 'produccion_add' %}page{% endif %}">
-            <i class="fas fa-plus"></i> Nueva Producción
-        </a>
-        <a href="{% url 'produccion_list' %}" 
-           class="btn {% if request.resolver_match.url_name == 'produccion_list' %}btn-primary{% else %}btn-outline-secondary{% endif %}" 
-           aria-current="{% if request.resolver_match.url_name == 'produccion_list' %}page{% endif %}">
-            <i class="fas fa-list"></i> Ver Producción
-        </a>
-        <a href="{% url 'produccion_sincronizarProductos' %}" 
-           class="btn {% if request.resolver_match.url_name == 'produccion_sincronizarProductos' %}btn-primary{% else %}btn-outline-secondary{% endif %}" 
-           aria-current="{% if request.resolver_match.url_name == 'produccion_sincronizarProductos' %}page{% endif %}">
-            <i class="fas fa-sync-alt"></i> Sincronizar Productos
-        </a>
+<div class="container mt-4">
+    <!-- Header de producción -->
+    <div class="production-header card shadow-sm border-0 mb-4 bg-primary text-white ">
+        <div class="card-body">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <h2 class="text-dark mb-3 mb-md-0">
+                    <i class="bi bi-clipboard-data me-2"></i>
+                    {% block produccion_title %}Producción{% endblock %}
+                </h2>
+                
+                <div class="d-flex gap-2 flex-wrap justify-content-center">
+                    <a href="{% url 'produccion_add' %}" 
+                       class="btn btn-production {% if request.resolver_match.url_name == 'produccion_add' %}active{% endif %}">
+                        <i class="bi bi-plus-lg me-2 "></i>Nueva Producción
+                    </a>
+                    <a href="{% url 'produccion_list' %}" 
+                       class="btn btn-production {% if request.resolver_match.url_name == 'produccion_list' %}active{% endif %}">
+                        <i class="bi bi-list-task me-2"></i>Ver Producción
+                    </a>
+                    <a href="{% url 'produccion_sincronizarProductos' %}" 
+                       class="btn btn-production {% if request.resolver_match.url_name == 'produccion_sincronizarProductos' %}active{% endif %}">
+                        <i class="bi bi-arrow-repeat me-2"></i>Sincronizar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensajes -->
+    {% if messages %}
+    <div class="container mb-4">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show alert-production" role="alert">
+            <i class="bi {% if message.tags == 'success' %}bi-check-circle-fill{% else %}bi-exclamation-triangle-fill{% endif %} me-2"></i>
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Contenido principal -->
+    <div class="production-content card shadow-sm border-0">
+        <div class="card-body">
+            {% block produccion_content %}
+            <div class="p-3 rounded">
+                {% block produccion_details %}{% endblock %}
+            </div>
+            {% endblock %}
+        </div>
     </div>
 </div>
-
-{% if messages %}
-<div class="container mt-3">
-    {% for message in messages %}
-    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    {% endfor %}
-</div>
-{% endif %}
-
-{% block produccion_content %}
-<div class="bg-light p-3 rounded">
-    {% block produccion_details %}{% endblock %}
-</div>
-{% endblock %}
 {% endblock %}

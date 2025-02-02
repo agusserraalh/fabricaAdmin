@@ -8,14 +8,16 @@ class ProductionForm(forms.ModelForm):
         model = Production
         fields = ('id', 'cantidad')
         widgets = {
-            'id': forms.HiddenInput(), 
+            'id': forms.HiddenInput(attrs={'id': 'edit_id'}),
             'cantidad': forms.NumberInput(attrs={
-            'class': 'small-input',     
-            'style': 'width: 80px; text-align: center;',                      })        
+                'class': 'form-control',
+                'id': 'id_cantidad',
+                'style': 'width: 100px; height: 30px; padding: 2px; font-size: 14px;',  # Estilos personalizados
+
+            })
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Hacer el campo 'id' no editable 
         self.fields['id'].widget.attrs['readonly'] = True
         self.fields['cantidad'].initial= 0

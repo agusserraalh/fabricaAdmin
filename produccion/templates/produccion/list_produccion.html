@@ -4,106 +4,238 @@
 {% block produccion_title %}Lista de Producción{% endblock %}
 
 {% block produccion_content %}
+<div class="container mt-4">
+    <div class="card mb-4 border-0 shadow">
+        <div class="card-header bg-primary text-white">
+            <h2 class="h4 mb-0 text-center">Detalle de Producción Diaria</h2>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">Fecha</th>
+                            <th>Producto</th>
+                            <th class="pe-4 text-end">Cantidad</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for produccion in object_list %}
+                        <tr>
+                            <td class="ps-4">{{ produccion.date|date:"d/m/Y" }}</td>
+                            <td>{{ productos_dict|get_item:produccion.id }}</td>
+                            <td class="pe-4 text-end fw-bold">{{ produccion.cantidad }}</td>
+                            <td class="text-center">
+                                <!-- Botón Editar -->
+                                <button class="btn btn-sm btn-warning me-2" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#editModal"
+                                        data-uuid="{{ produccion.uuid }}"
+                                        data-cantidad="{{ produccion.cantidad }}">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
 
-<div class="table-responsive mt-4">
-    <h2 class="text-center">Detalle  producción Ingresado </h2>
-    <table class="table table-hover table-striped align-middle mb-0">
-        <thead class="table-primary">
-            <tr>
-                <th>Fecha</th>
-                <th>Producto</th>
-                <th>Cantidad</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for produccion in object_list %}
-            <tr>
-                <td>{{ produccion.date|date:"d/m/Y" }}</td>
-                <td>{{ productos_dict|get_item:produccion.id }}</td>
-                <td>{{ produccion.cantidad }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                                    
+                                    <!-- Botón Eliminar (mantén el existente) -->
+                                <!-- Botón Eliminar -->
+                                <button class="btn btn-sm btn-danger" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#confirmDeleteModal"
+                                        data-url="{% url 'produccion_delete' produccion.uuid %}">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center py-4 text-muted">No hay registros de producción</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Paginación -->
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" aria-label="First">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="visually-hidden">Primer</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        Anterior
+                    </a>
+                </li>
+            {% endif %}
+
+            <li class="page-item disabled">
+                <span class="page-link">
+                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                </span>
+            </li>
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                        Siguiente
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="visually-hidden">Última</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 </div>
 
-<nav aria-label="Page navigation" class="mt-3">
-    <ul class="pagination justify-content-center">
-        {% if page_obj.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page=1" aria-label="First">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="visually-hidden">Primer</span>
-                </a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-                    Anterior
-                </a>
-            </li>
-        {% else %}
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-        {% endif %}
-
-        <li class="page-item disabled">
-            <span class="page-link">
-                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
-            </span>
-        </li>
-
-        {% if page_obj.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
-                    Siguiente
-                </a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="visually-hidden">Última</span>
-                </a>
-            </li>
-        {% else %}
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        {% endif %}
-    </ul>
-</nav>
-
-<hr>
-
-<div class="mt-4">
-    <h2 class="text-center">Reporte de Producción Mensual</h2>
-    <h4 class="text-center">Mes: {{ current_month }}/{{ current_year }}</h4>
-    <div class="table-responsive">
-        <table class="table table-hover table-striped align-middle mb-0">
-            <thead class="table-primary">
-                <tr>
-                    <th>Producto</th>
-                    <th>Total Producido</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in produccion_mensual %}
-                <tr>
-                    <td>{{ productos_dict|get_item:item.id }}</td>
-                    <td>{{ item.total_cantidad }}</td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="3" class="text-center">No hay datos de producción para este mes.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+<!-- Modal de edición -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editar Cantidad</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" id="editForm">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <!-- Campo oculto para el UUID -->
+                    <input type="hidden" name="uuid" id="edit_uuid">
+                    
+                    <!-- Campo de cantidad -->
+                    <div class="mb-3">
+                        <label for="edit_cantidad" class="form-label">Cantidad</label>
+                        <input type="number" 
+                               class="form-control" 
+                               id="edit_cantidad" 
+                               name="cantidad"
+                               required
+                               min="0">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+
+<!-- Modal de Confirmación de Eliminación -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que deseas eliminar este registro? Esta acción no se puede deshacer.
+            </div>
+            <div class="modal-footer">
+                <!-- Formulario de eliminación -->
+                <form method="post" id="deleteForm">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Sección Reporte Mensual -->
+<div class="card mt-4 border-0 shadow">
+    <div class="card-header bg-success text-white">
+        <h2 class="h4 mb-0 text-center">Resumen Mensual - {{ current_month }}/{{ current_year }}</h2>
+    </div>
+    <div class="card-body">
+
+        <!-- Formulario de Filtro por Mes -->
+        <form method="GET" action="{% url 'produccion_list' %}" class="mb-3 d-flex justify-content-center">
+            <label for="mes" class="me-2">Seleccionar Mes:</label>
+            <select name="mes" id="mes" class="form-select w-auto me-3">
+                {% for num, nombre in meses.items %}
+                <option value="{{ num }}" {% if num == current_month %}selected{% endif %}>{{ nombre }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="anio" class="me-2">Año:</label>
+            <select name="anio" id="anio" class="form-select w-auto me-3">
+                {% for anio in anios_disponibles %}
+                <option value="{{ anio }}" {% if anio == current_year %}selected{% endif %}>{{ anio }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-green table-hover table-striped align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-4">Producto</th>
+                        <th class="pe-4 text-end">Total Producido</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in produccion_mensual %}
+                    <tr>
+                        <td class="ps-4">{{ productos_dict|get_item:item.id }}</td>
+                        <td class="pe-4 text-end fw-bold">{{ item.total_cantidad }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2" class="text-center py-4 text-muted">No hay datos de producción para este mes.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Actualizar el script del modal eliminacion -->
+<script>
+    document.getElementById('confirmDeleteModal').addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const deleteUrl = button.getAttribute('data-url');
+        const form = document.getElementById('deleteForm');
+        form.action = deleteUrl;
+    });
+    </script>
+
+<!-- Script para manejar el modal de edición -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const editModal = document.getElementById('editModal');
+        
+        editModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const uuid = button.getAttribute('data-uuid');
+            const cantidad = button.getAttribute('data-cantidad');
+            
+            // Actualizar el formulario
+            document.getElementById('edit_uuid').value = uuid;
+            document.getElementById('edit_cantidad').value = cantidad;
+            document.getElementById('editForm').action = `/produccion/editar/${uuid}/`;
+        });
+    });
+    </script>
 
 {% endblock %}

@@ -5,36 +5,53 @@
 {% block produccion_title %}Registrar Producción{% endblock %}
 
 {% block produccion_content %}
+<div class="container mt-4">
+
 <form method="post">
     {% csrf_token %}
     {{ formset.management_form }}
-    <div class="table-responsive mt-4">
-        <table class="table table-hover table-striped align-middle mb-0">
-            <thead class="table-primary">
-                <tr>
-                    <th class="py-3">Producto</th>
-                    <th class="py-3">Cantidad</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% if formset %}
-                {% for form in formset %}
-                <tr>
-                    <td class="mt-4">
-                        {% with product_name=productos_dict|get_item:form.id.value %}
-                            {{ product_name }}
-                        {% endwith %}
-                        {{ form.id }}
-                    </td>
-                    <td class="mt-4">
-                        {{ form.cantidad }}
-                    </td>
-                </tr>
-                {% endfor %}
-                {% endif %}
-            </tbody>
-        </table>
+    <div class="card mb-4 border-0 shadow">
+        <div class="card-header bg-primary text-white">
+            <h2 class="h4 mb-0 text-center">Ingresar produccion</h2>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th class="ps-4" >Producto</th>
+                            <th class="ps-4">Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if formset %}
+                        {% for form in formset %}
+                        <tr>
+                            <td class="ps-4">
+                                {% with product_name=productos_dict|get_item:form.id.value %}
+                                    {{ product_name }}
+                                {% endwith %}
+                                {{ form.id }}
+                            </td>
+                            <td class="ps-4">
+                                {{ form.cantidad }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="3" class="text-center py-4 text-muted">No hay registros de producción</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary btn-lg mt-4">Guardar Producción</button>
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary btn-lg mt-4">Guardar Producción</button>
+    </div>
 </form>
+</div>
+
 {% endblock %}
