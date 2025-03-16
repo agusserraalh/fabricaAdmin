@@ -1,7 +1,7 @@
-# FabricaSerra Admin
+# FabricaSerra Admin 
 
 ## Descripción
-Extensión de Invoice Ninja para digitalización integral de empresa, enfocada en:
+Extensión de Invoice Ninja para digitalización integral de empresa, enfocada :
 - Control de producción de productos
 - Punto de venta 
 - Generación de reportes avanzados
